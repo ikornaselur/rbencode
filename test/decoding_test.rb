@@ -51,4 +51,22 @@ class EncodingTest < Minitest::Test
     encoded = 'ld3:food3:barli1ei2e3:bazee3:quxi10ee4:norfi1ei2ei3eli4ei5ei6eee'
     assert_equal(expected, Rbencode.decode(encoded))
   end
+
+  def test_decoding_corrupt_data
+    assert_raises MalformedData do
+      Rbencode.decode('li1ei3ei4e')
+    end
+
+    assert_raises MalformedData do
+      Rbencode.decode('d3:fooe')
+    end
+
+    assert_raises MalformedData do
+      Rbencode.decode('10:foo')
+    end
+
+    assert_raises MalformedData do
+      Rbencode.decode('l4:foo3:bare')
+    end
+  end
 end

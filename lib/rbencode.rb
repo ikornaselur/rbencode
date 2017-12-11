@@ -3,6 +3,9 @@ require 'rbencode/version'
 class UnsupportedDataError < StandardError
 end
 
+class MalformedData < StandardError
+end
+
 # A bencoding module to serialize to and from the bit torrent bencoding spec
 module Rbencode
   def self.encode(data)
@@ -67,7 +70,7 @@ class Decoder
     elsif type == 'd'
       parse_hash
     else
-      raise UnsupportedDataError
+      raise MalformedData
     end
   end
 
@@ -76,6 +79,9 @@ class Decoder
     count_chars.push(@encoded_buffer.shift) while @encoded_buffer[0] != ':'
     @encoded_buffer.shift  # Drop the colon
     count = count_chars.join.to_i
+
+    raise MalformedData if @encoded_buffer.length < count
+
     @encoded_buffer.shift(count).join
   end
 
