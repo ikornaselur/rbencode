@@ -10,5 +10,8 @@ require "rbencode"
 # require "pry"
 # Pry.start
 
+require 'bond'
+Bond.start
+
 require "irb"
 IRB.start(__FILE__)
