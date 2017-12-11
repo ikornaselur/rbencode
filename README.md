@@ -1,8 +1,8 @@
 # Rbencode
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rbencode`. To experiment with that code, run `bin/console` for an interactive prompt.
+A simple bencoding module, to encode and decode as specified in the [BitTorrent Protocol Specification: BEP 3](http://www.bittorrent.org/beps/bep_0003.html).
 
-TODO: Delete this and the text above, and describe your gem
+This project was mainly made as a simple task to implement while learning ruby.
 
 ## Installation
 
@@ -22,7 +22,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Rbencode.decode('3:foo') == 'foo'
+Rbencode.encode('foo') == '3:foo'
+```
+
+See tests for more examples
 
 ## Development
 
@@ -32,7 +37,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rbencode.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ikornaselur/rbencode.
 
 ## License
 
