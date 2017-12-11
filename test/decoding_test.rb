@@ -28,6 +28,11 @@ class EncodingTest < Minitest::Test
                  Rbencode.decode('d3:bar3:bar3:baz3:baze'))
   end
 
+  def test_decoding_nested_hash
+    assert_equal({ 'foo' => { 'bar' => 'baz' } },
+                 Rbencode.decode('d3:food3:bar3:bazee'))
+  end
+
   def test_decoding_complex_object
     # Test an object with everything
     expected = [

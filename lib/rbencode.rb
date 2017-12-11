@@ -22,8 +22,12 @@ module Encoder
   def self.encode(data)
     if data.is_a? Integer
       encode_int(data)
+    elsif data.is_a? String
+      encode_string(data)
     elsif data.is_a? Array
       encode_array(data)
+    elsif data.is_a? Hash
+      encode_hash(data)
     else
       raise UnsupportedDataError
     end
@@ -33,8 +37,16 @@ module Encoder
     "i#{data}e"
   end
 
+  def encode_string(data)
+    "#{data.length}:#{data}"
+  end
+
   def encode_array(data)
-    "l#{data.collect { |x| encode(x) }.join}e"
+    "l#{data.collect { |item| encode(item) }.join}e"
+  end
+
+  def encode_hash(data)
+    "d#{data.to_a.flatten(1).collect { |item| encode(item) }.join}e"
   end
 end
 
